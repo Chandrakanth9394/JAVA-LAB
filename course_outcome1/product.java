@@ -1,7 +1,6 @@
 package sem2;
 public class product {
-    String pcode;
-    String pname;
+    String pcode,pname;
     int price;
         public static void main(String[] args) {
         product p_1 = new product("A123", "TV", 2);
