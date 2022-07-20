@@ -1,0 +1,353 @@
+1. Write a shell script to get current date, time, username and current
+working?
+#!/bin/bash
+echo "Hello, $LOGNAME"
+echo "Current date is $(date)"
+echo "User is $(whoami)"
+echo "Current directory $(pwd)"
+
+2.How can we pass arguments to a script in Linux? And how to access these
+arguments from within the script?
+#!/bin/bash
+#Call this script with at least 3parameters
+echo “First parameter is $1”
+echo “Second parameter is $2”
+echo “Third parameter is $3”
+
+3.What is the difference between $* and $@?
+ $@ treats each quoted arguments as separate arguments but $*
+considers
+#the entire set of positional parameters as a single string.
+for var in “$@”
+ do
+echo “$var”
+Done
+
+for var in $*
+do
+echo “$var”
+Done
+
+4.Write a script to compare numbers?
+ #!/bin/bash
+# Script to do numeric comparisons
+var1=10
+var2=20
+if [ $var2 -gt $var1 ]
+ then
+ echo "$var2 is greater than $var1"
+fi
+# Second comparison
+If [ $var1 -gt 30]then
+echo "$var is greater than 30"
+ else
+ echo "$var1 is less than 30"
+Fi
+
+5.5.	How to check if a directory exists?
+if [ -d "/path/to/dir" ] then
+ 
+
+else
+
+
+fi 
+echo "Directory /path/to/dir exists."
+echo "Error: Directory /path/to/dir does not exists."
+................
+6.Write a shell script to check to see if the file “file_path” exists?
+#!/bin/bash FILE=”” if [ -e “$FILE” ] 
+then
+echo “$FILE passwords are enabled” 
+fi
+if [ -x “$FILE” ] 
+then
+echo “You have permission to execute $FILE” 
+else 
+echo “You do Not have permissions to execute $FILE” 
+fi
+.........
+6.Write a shell script to display the last updated file or the newest file in a directory?
+ls -lrt | grep ^- | awk 'END{print $NF}'
+
+5.How to print all array indexes?
+echo ${ARRAYNAME[*]}
+ #! /bin/bash
+ # To declare static Array
+arr=(red black green yellow violet)
+# To print all elements of array
+echo ${arr[@]}
+echo ${arr[*]}
+echo ${arr[@]:0}
+echo ${arr[*]:0}
+
+6.12.Write a shell script that adds an extension “.new” to all the files in
+directory.
+running the test script.
+#!/bin/bash
+dir=$1
+for file in `ls $1/*`
+do
+50
+ mv $file $file.new
+done
+
+7.12.Write a shell script that adds an extension “.new” to all the files in
+directory.
+running the test script.
+#!/bin/bash
+dir=$1
+for file in `ls $1/*`
+do
+50
+ mv $file $file.new
+done
+8.Write a shell script to display the last updated file or the newest file in a
+directory?
+#!/bin/bash
+ ls -lrt | grep ^- | awk 'END{print $NF}'
+9.Write a shell script to print a number in reverse order. It should support
+n=$1
+rev=0
+sd=0
+while [ $n -gt 0 ]
+ do
+ sd=`expr $n % 10`
+ rev=`expr $rev \* 10 + $sd`
+ n=`expr $n / 10`
+done
+echo "Reverse number is $rev"
+10.Write a shell script to find out the unique words in a file and also
+count the occurrence of each of these words. We can say that the file
+under consideration contains many lines, and each line has multiple
+words
+ $ cat animal.txt
+tiger bear
+elephant tiger bear
+bear
+Following test script/command will count the unique words.
+$ awk '{for(i=1;i<=NF;i++)a[$i]++;}END{for(i in a){print i,
+a[i];}}' animal.txt
+
+11.Write a script to print the first 10 elements of Fibonacci series
+#!/bin.bash
+echo "enter the limit:"
+read n
+a=0
+b=1
+c=0
+echo "fibinocci series is:"
+echo "$a"
+echo "$b"
+for((i=0;i<n;i++))
+do
+c=$((a+b))
+echo "$c"
+a=$b
+b=$c
+done
+or.........
+N=6
+a=0
+b=1
+echo "The Fibonacci series is : "
+for ((i=0;i<N;i++))
+do
+echo "$a"
+fn=$((a + b))
+a=$b
+b=$fn
+done
+
+
+
+12.Write a shell script to validate password strength. Here are a few
+assumptions for the password string.
+echo "Enter your password"
+read password
+len="${#password}"
+if test $len -ge 8 ; then
+ echo "$password" | grep -q [0-9]
+ if test $? -eq 0 ; then
+ echo "$password" | grep -q [A-Z]
+ if test $? -eq 0 ; then
+ echo "$password" | grep -q [a-z]
+ if test $? -eq 0 ; then
+ echo "Strong Password"
+ else
+ echo "Weak Password -> Should include a lower case letter."
+ fi
+ else
+ echo "Weak Password -> Should include a capital case letter."
+ fi
+ else
+ echo "Weak Password -> Should use numbers in your password."
+ fi
+else
+ echo "Weak Password -> Password length should have at least 8
+characters."
+fi
+....................................................................
+7.Use the sed command to replace the content of the file?
+  ->sed -i 's/old-text/new-text/g' input.txt
+8.prime number or not?
+echo -e "Enter Number : \c"
+read n
+for((i=2; i<=$n/2; i++))
+do
+  ans=$(( n%i ))
+  if [ $ans -eq 0 ]
+  then
+    echo "$n is not a prime number."
+    exit 0
+  fi
+done
+echo "$n is a prime number."
+........................................
+9.amstrong or not?
+echo "Enter the number"
+read n
+function ams
+{
+t=$n
+s=0
+b=0
+c=10
+while [ $n -gt $b ]
+do
+r=$((n % c))
+i=$((r * r * r))
+s=$((s + i))
+n=$((n / c))
+done
+echo $s
+if [ $s == $t ]
+then
+echo "Amstrong number"
+else
+echo "Not an Armstrong number"
+fi
+}
+result=`ams $n`
+echo "$result"
+......................
+10.largest amoung 3 numbers?
+echo "Enter Num1"
+read num1
+echo "Enter Num2"
+read num2
+echo "Enter Num3"
+read num3
+
+if [ $num1 -gt $num2 ] && [ $num1 -gt $num3 ]
+then
+    echo $num1
+elif [ $num2 -gt $num1 ] && [ $num2 -gt $num3 ]
+then
+    echo $num2
+else
+    echo $num3
+fi
+..................
+11.shell script to check whether a number is positive or negative
+
+echo "Enter a Number"
+read num
+
+if [ $num -lt 0 ]
+then
+    echo "Negative"
+elif [ $num -gt 0 ]
+then
+    echo "Positive"
+else
+    echo "Neither Positive Nor Negative"
+fi
+..........................
+12.sum of n numbers?
+echo "Enter a number"
+read num
+
+sum=0
+
+while [ $num -gt 0 ]
+do
+    mod=$((num % 10))    #It will split each digits
+    sum=$((sum + mod))   #Add each digit to sum
+    num=$((num / 10))    #divide num by 10.
+done
+
+echo $sum
+13.#shell script for largest of n numbers
+  
+echo "Enter Size(N)"
+read N
+
+i=1
+max=0
+
+echo "Enter Numbers"
+while [ $i -le $N ]
+do
+  read num
+  if [ $i -eq 1 ]  #set first number as max
+  then
+      max=$num
+  else             #from number 2 update max if the num > max.
+      if [ $num -gt $max ]
+      then
+        max=$num
+      fi
+  fi
+  i=$((i + 1))  #increment i by 1
+done
+
+echo $max
+............
+14.#shell script to find average of n numbers
+  
+echo "Enter Size(N)"
+read N
+
+i=1
+sum=0
+
+echo "Enter Numbers"
+while [ $i -le $N ]
+do
+  read num               #get number
+  sum=$((sum + num))     #sum+=num
+  i=$((i + 1))
+done
+
+avg=$(echo $sum / $N | bc -l)
+
+echo $avg
+...............
+15.#shell script for factorial of a number
+#factorial using for loop
+
+echo "Enter a number"
+read num
+
+fact=1
+
+for((i=2;i<=num;i++))
+{
+  fact=$((fact * i))  #fact = fact * i
+}
+
+echo $fact
+16.#shell script to compare two strings
+  
+read -p "Enter two strings: " str1 str2
+
+if [ $str1 == $str2 ]
+then
+    echo "Equal"
+else
+    echo "Un Equal"
+fi
+17.Write a shell script to get the total count of the word “Linux” in all the “.txt” files
+and also across files present in subdirectories?
+$ find . -name *.txt -exec grep -c Linux '{}' \; | awk '{x+=$0;}END{print x}'
