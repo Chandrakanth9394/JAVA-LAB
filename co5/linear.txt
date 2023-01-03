@@ -1,0 +1,115 @@
+>import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn import metrics>
+     
+
+>dataset = pd.read_csv('/content/Salary_Data.csv')
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, 1].values
+dataset>
+     
+YearsExperience	Salary
+0	1.1	39343.0
+1	1.3	46205.0
+2	1.5	37731.0
+3	2.0	43525.0
+4	2.2	39891.0
+5	2.9	56642.0
+6	3.0	60150.0
+7	3.2	54445.0
+8	3.2	64445.0
+9	3.7	57189.0
+10	3.9	63218.0
+11	4.0	55794.0
+12	4.0	56957.0
+13	4.1	57081.0
+14	4.5	61111.0
+15	4.9	67938.0
+16	5.1	66029.0
+17	5.3	83088.0
+18	5.9	81363.0
+19	6.0	93940.0
+20	6.8	91738.0
+21	7.1	98273.0
+22	7.9	101302.0
+23	8.2	113812.0
+24	8.7	109431.0
+25	9.0	105582.0
+26	9.5	116969.0
+27	9.6	112635.0
+28	10.3	122391.0
+29	10.5	121872.0
+
+>X>
+     
+array([[ 1.1],
+       [ 1.3],
+       [ 1.5],
+       [ 2. ],
+       [ 2.2],
+       [ 2.9],
+       [ 3. ],
+       [ 3.2],
+       [ 3.2],
+       [ 3.7],
+       [ 3.9],
+       [ 4. ],
+       [ 4. ],
+       [ 4.1],
+       [ 4.5],
+       [ 4.9],
+       [ 5.1],
+       [ 5.3],
+       [ 5.9],
+       [ 6. ],
+       [ 6.8],
+       [ 7.1],
+       [ 7.9],
+       [ 8.2],
+       [ 8.7],
+       [ 9. ],
+       [ 9.5],
+       [ 9.6],
+       [10.3],
+       [10.5]])
+
+>from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 1/3, random_state = 0)>
+
+>from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)>
+     
+>LinearRegression()>
+
+>y_pred = regressor.predict(X_test)>
+     
+
+>plt.scatter(X_train, y_train, color = 'red')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')>
+...........
+graph
+......
+
+>plt.scatter(X_test, y_test, color = 'red')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.title('Salary vs Experience (Test set)')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.show()>
+.......
+graph
+.....
+
+>print(regressor.intercept_)>
+     
+26816.192244031183
+
+>print('MAE:', metrics.mean_absolute_error(y_test, Y_pred))
+print('MSE:', metrics.mean_squared_error(y_test, Y_pred))
+print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, Y_pred)))>
+     
+MAE: 3426.4269374307078
+MSE: 21026037.329511296
+RMSE: 4585.4157204675885

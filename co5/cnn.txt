@@ -1,0 +1,75 @@
+>import keras
+from keras.datasets import cifar10
+import matplotlib.pyplot as plt>
+
+>(xtr,ytr),(xt,yt)=cifar10.load_data()>
+
+>for i in range(10):
+  plt.figure(figsize=(10,2))
+  plt.imshow(xtr[i])
+  plt.axis('off')
+  plt.show()>
+.......
+output pictures
+...............
+
+>ytr[:10]>
+
+>xtr.shape>
+
+>ytr.shape>
+
+>xtr=xtr/255>
+
+>xt=xt/255>
+
+>from keras.models import Sequential
+from keras.layers import Dense,Conv2D,MaxPool2D,Flatten>
+
+>cnn=Sequential()>
+
+>cnn.add(Conv2D(32,kernel_size=(3,3),activation='relu',input_shape=(32,32,3)))>
+
+>cnn.add(MaxPool2D((2,2)))>
+
+>cnn.add(Conv2D(32,kernel_size=(3,3),activation='relu'))>
+
+>cnn.add(MaxPool2D((2,2)))>
+
+>cnn.summary()>
+
+>cnn.add(Flatten())>
+
+>cnn.add(Dense(64,activation='relu'))>
+
+>cnn.add(Dense(10,activation='softmax'))>
+
+>cnn.summary()>
+
+>cnn.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])>
+
+
+>cnn.fit(xtr,ytr,epochs=10,verbose=2)>
+
+cnn.evaluate(xt,yt)
+
+pred=cnn.predict(xt)
+
+plt.figure(figsize=(5,2))
+plt.imshow(xt[3])
+
+yt[3]
+
+pred[3]
+
+import numpy as np
+np.argmax(pred[3])
+
+
+y_class=[]
+
+for i in pred:
+  y_class.append(np.argmax(i))
+
+y_class[3]
+

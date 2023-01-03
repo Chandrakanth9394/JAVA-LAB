@@ -1,0 +1,72 @@
+1>import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+
+
+data = load_iris()
+X = data.data
+y = data.target>
+
+     
+
+2>data.feature_names>
+     
+['sepal length (cm)',
+ 'sepal width (cm)',
+ 'petal length (cm)',
+ 'petal width (cm)']
+
+3>data.target_names>
+     
+array(['setosa', 'versicolor', 'virginica'], dtype='
+
+4>from sklearn.model_selection import train_test_split>
+     
+
+5>X_train, X_test, y_train, y_test = train_test_split(X,y, random_state = 42, test_size = 0.3)>
+     
+
+6>from sklearn.tree import DecisionTreeClassifier>
+7>classifier=DecisionTreeClassifier()
+classifier.fit(X_train,y_train)
+y_pred=classifier.predict(X_test)
+print("Accuracy on trained data=",accuracy_score(y_true=y_train,y_pred=classifier.predict(X_train)));>
+     
+Accuracy on trained data= 1.0
+
+8>print("Accuracy on test data=",accuracy_score(y_true=y_test,y_pred=y_pred));>
+     
+Accuracy on test data= 1.0
+
+10>class_entropy=DecisionTreeClassifier(criterion="entropy")
+class_entropy.fit(X_train,y_train)
+y_pred=class_entropy.predict(X_test)
+print("Accuracy on trained data=",accuracy_score(y_true=y_train,y_pred=class_entropy.predict(X_train)));
+print("Accuracy on test data=",accuracy_score(y_true=y_test,y_pred=y_pred));>
+     
+Accuracy on trained data= 1.0
+Accuracy on test data= 1.0
+
+11>from sklearn.tree import export_graphviz
+from six import StringIO
+from IPython.display import Image
+import pydotplus
+dot_data=StringIO()
+export_graphviz(classifier,out_file=dot_data,filled=True,rounded=True,special_characters=True,feature_names=data.feature_names,class_names=data.target_names)
+graph=pydotplus.graph_from_dot_data(dot_data.getvalue())
+Image(graph.create_png())>
+.......
+output picture1
+......
+12>from sklearn.tree import export_graphviz
+from six import StringIO
+from IPython.display import Image
+import pydotplus
+dot_data=StringIO()
+export_graphviz(class_entropy,out_file=dot_data,filled=True,rounded=True,special_characters=True,feature_names=data.feature_names,class_names=data.target_names)
+graph=pydotplus.graph_from_dot_data(dot_data.getvalue())
+Image(graph.create_png())>
+.............
+next output picture
+............

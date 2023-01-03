@@ -1,0 +1,140 @@
+>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns>
+     
+
+>dataset=pd.read_csv('Iris.csv')>
+     
+
+>dataset>
+
+     
+Id	SepalLengthCm	SepalWidthCm	PetalLengthCm	PetalWidthCm	Species
+0	1	5.1	3.5	1.4	0.2	Iris-setosa
+1	2	4.9	3.0	1.4	0.2	Iris-setosa
+2	3	4.7	3.2	1.3	0.2	Iris-setosa
+3	4	4.6	3.1	1.5	0.2	Iris-setosa
+4	5	5.0	3.6	1.4	0.2	Iris-setosa
+...	...	...	...	...	...	...
+145	146	6.7	3.0	5.2	2.3	Iris-virginica
+146	147	6.3	2.5	5.0	1.9	Iris-virginica
+147	148	6.5	3.0	5.2	2.0	Iris-virginica
+148	149	6.2	3.4	5.4	2.3	Iris-virginica
+149	150	5.9	3.0	5.1	1.8	Iris-virginica
+150 rows × 6 columns
+
+>from sklearn.preprocessing import StandardScaler>
+     
+
+>scaler=StandardScaler()>
+     
+
+>scaler.fit(dataset.drop('Species',axis=1))>
+     
+>StandardScaler()>
+
+>dataset.columns[:-1]>
+     
+Index(['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm'], dtype='object')
+
+>scaled_features=scaler.transform(dataset.drop('Species',axis=1))>
+     
+
+>scaled_features>
+array([[-1.72054204e+00, -9.00681170e-01,  1.03205722e+00,
+        -1.34127240e+00, -1.31297673e+00],
+       [-1.69744751e+00, -1.14301691e+00, -1.24957601e-01,
+        -1.34127240e+00, -1.31297673e+00],
+       [-1.67435299e+00, -1.38535265e+00,  3.37848329e-01,
+        -1.39813811e+00, -1.31297673e+00],
+       [-1.65125846e+00, -1.50652052e+00,  1.06445364e-01,
+        -1.28440670e+00, -1.31297673e+00],
+       [-1.62816394e+00, -1.02184904e+00,  1.26346019e+00,
+        -1.34127240e+00, -1.31297673e+00],
+       [-1.60506942e+00, -5.37177559e-01,  1.95766909e+00,
+        -1.17067529e+00, -1.05003079e+00],
+       [-1.58197489e+00, -1.50652052e+00,  8.00654259e-01,
+        -1.34127240e+00, -1.18150376e+00],
+       [-1.55888037e+00, -1.02184904e+00,  8.00654259e-01,
+        -1.28440670e+00, -1.31297673e+00],
+       [-1.53578584e+00, -1.74885626e+00, -3.56360566e-01,
+        -1.34127240e+00, -1.31297673e+00],
+
+>new_dataset=pd.DataFrame(scaled_features,columns=dataset.columns[:-1])>
+     
+
+>new_dataset>
+     
+Id	SepalLengthCm	SepalWidthCm	PetalLengthCm	PetalWidthCm
+0	-1.720542	-0.900681	1.032057	-1.341272	-1.312977
+1	-1.697448	-1.143017	-0.124958	-1.341272	-1.312977
+2	-1.674353	-1.385353	0.337848	-1.398138	-1.312977
+3	-1.651258	-1.506521	0.106445	-1.284407	-1.312977
+4	-1.628164	-1.021849	1.263460	-1.341272	-1.312977
+...	...	...	...	...	...
+145	1.628164	1.038005	-0.124958	0.819624	1.447956
+146	1.651258	0.553333	-1.281972	0.705893	0.922064
+147	1.674353	0.795669	-0.124958	0.819624	1.053537
+148	1.697448	0.432165	0.800654	0.933356	1.447956
+149	1.720542	0.068662	-0.124958	0.762759	0.790591
+>from sklearn.model_selection import train_test_split
+X=new_dataset
+y=dataset['Species']>
+     
+
+>X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=42)>
+     
+
+>from sklearn.naive_bayes import GaussianNB , BernoulliNB, CategoricalNB>
+     
+
+>from sklearn.metrics import confusion_matrix>
+     
+
+>from sklearn.metrics import accuracy_score>
+     
+
+scores=[]>
+     
+
+classifier=GaussianNB()>
+     
+
+classifier.fit(X_train,y_train)>
+GaussianNB()
+
+y_pred=classifier.predict(X_test)>
+     
+
+>scores.append(accuracy_score(y_test,y_pred))>
+     
+
+>cm=confusion_matrix(y_test,y_pred)>
+     
+
+>cm>
+     
+array([[19,  0,  0],
+       [ 0, 13,  0],
+       [ 0,  0, 13]])
+
+>print(scores)>
+     
+[1.0]
+
+>classifier1=BernoulliNB()
+classifier1.fit(X_train,y_train)
+y_pred=classifier1.predict(X_test)
+scores.append(accuracy_score(y_test,y_pred))
+cm=confusion_matrix(y_test,y_pred)
+cm>
+
+     
+array([[19,  0,  0],
+       [ 0,  9,  4],
+       [ 0,  1, 12]])
+
+>print(scores)>
+     
+[1.0, 0.8888888888888888]

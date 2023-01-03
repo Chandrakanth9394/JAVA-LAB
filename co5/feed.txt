@@ -1,0 +1,56 @@
+ >import keras
+from keras.datasets import mnist
+from keras.models import Sequential
+from keras.layers import Dense
+from tensorflow.keras.optimizers import SGD
+from matplotlib import pyplot as plt>
+
+>(x_train,y_train),(x_test,y_test)=mnist.load_data()>
+
+>plt.figure(figsize=(5,5))
+for k in range(20):
+  plt.subplot(10,2,k+1)
+  plt.imshow(x_train[k],cmap='Greys')
+  plt.axis('off')
+  plt.show()>
+........
+output numbers
+...........
+
+>plt.imshow(x_test[5],cmap='Greys')>
+
+.......
+output number 1
+........
+
+>x_train = x_train.reshape(60000,784).astype('float32')
+x_test = x_test.reshape(10000,784).astype('float32')>
+
+
+>from keras import utils as np_utils
+n_classes=10
+y_train=keras.utils.np_utils.to_categorical(y_train,n_classes)
+y_test=keras.utils.np_utils.to_categorical(y_test,n_classes)>
+
+>model=Sequential()>
+
+
+>model.add(Dense(64, activation='sigmoid',input_shape=(784,)))>
+
+>model.add(Dense(10,activation='softmax'))>
+
+>model.summary()>
+
+>model.compile(loss='mean_squared_error',optimizer=SGD(learning_rate=0.01),metrics=['accuracy'])>
+
+>history=model.fit(x_train,y_train,batch_size=125,epochs=75,verbose=1)>
+
+>plt.plot(history.history['accuracy'])
+plt.xlabel('accuracy')
+plt.ylabel('epochs')
+plt.show()>
+
+>score = model.evaluate(x_test, y_test, verbose=0)
+print("Test loss:", score[0])
+print("Test accuracy:", score[1]) >
+
